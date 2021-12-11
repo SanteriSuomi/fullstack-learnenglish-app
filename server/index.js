@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const db = require("./db");
 
 const PORT = process.env.PORT || 3001;
 
@@ -13,10 +14,14 @@ app.listen(PORT, () => {
 
 // API
 app.get("/test", (req, res) => {
-	res.json({ message: "Hello from server!" });
+	res.header("Access-Control-Allow-Origin", "<origin>");
+	db.getAll()
+		.then((result) => res.send(result))
+		.catch((error) => res.send(error));
 });
 
 // If API is not accessed, send frontend instead
 app.get("*", (_, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
 	res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
