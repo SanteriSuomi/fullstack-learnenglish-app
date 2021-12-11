@@ -14,7 +14,7 @@ app.listen(PORT, () => {
 
 // API
 app.get("/test", async (req, res) => {
-	res.header("Access-Control-Allow-Origin", "<origin>");
+	res.header("Access-Control-Allow-Origin", "*");
 	let result = await db.getAll();
 	console.log(result);
 	res.send(result);
