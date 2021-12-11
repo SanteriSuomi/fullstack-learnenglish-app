@@ -13,11 +13,11 @@ app.listen(PORT, () => {
 });
 
 // API
-app.get("/test", (req, res) => {
+app.get("/test", async (req, res) => {
 	res.header("Access-Control-Allow-Origin", "<origin>");
-	db.getAll()
-		.then((result) => res.send(result))
-		.catch((error) => res.send(error));
+	let result = await db.getAll();
+	console.log(result);
+	res.send(result);
 });
 
 // If API is not accessed, send frontend instead

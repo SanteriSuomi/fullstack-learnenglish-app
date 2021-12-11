@@ -21,7 +21,7 @@ class DB {
 					(err, results, fields) => {
 						connection.release();
 						if (err) reject(err);
-						resolve(results);
+						resolve(JSON.parse(JSON.stringify(results)));
 					}
 				);
 			});
