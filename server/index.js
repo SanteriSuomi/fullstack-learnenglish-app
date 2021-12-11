@@ -16,8 +16,9 @@ app.listen(PORT, () => {
 
 // API
 app.get("/test", async (req, res) => {
-	let response = await db.getAll();
-	res.send(response);
+	db.getAll()
+		.then((response) => res.send(response))
+		.catch((error) => console.log(error));
 });
 
 // If API is not accessed, send frontend instead

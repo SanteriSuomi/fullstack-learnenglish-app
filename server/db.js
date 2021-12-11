@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-require("dotenv").config();
+// require("dotenv").config();
 
 class DB {
 	constructor() {
@@ -16,7 +16,6 @@ class DB {
 		return new Promise((resolve, reject) => {
 			this.pool.query("SELECT * FROM test", (err, results, fields) => {
 				if (err) {
-					console.log(err);
 					reject(err);
 				} else {
 					resolve(JSON.parse(JSON.stringify(results)));
