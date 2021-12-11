@@ -1,15 +1,16 @@
 const mysql = require("mysql");
-// require("dotenv").config();
+require("dotenv").config();
 
 class DB {
 	constructor() {
-		this.pool = mysql.createPool({
+		let config = {
 			host: process.env.host,
 			user: process.env.user,
 			password: process.env.pass,
 			database: process.env.db,
-			connectionLimit: 15,
-		});
+			connectionLimit: 10,
+		};
+		this.pool = mysql.createPool(config);
 	}
 
 	getAll() {
