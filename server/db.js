@@ -13,11 +13,32 @@ class DB {
 		this.pool = mysql.createPool(config);
 	}
 
+	authenticate(username, password) {
+		const sql = `SELECT * FROM Admins WHERE Username = ${this.pool.escape(
+			username
+		)} AND Password = ${this.pool.escape(password)};`;
+		return new Promise((resolve, reject) => {
+			this.pool.query(sql, (err, results, fields) => {
+				if (err) {
+					console.log(err);
+					reject("Something went wrong with the request");
+				} else {
+					if (results && results.length >= 1) {
+						resolve(true);
+					} else {
+						reject("Could not authenticate");
+					}
+				}
+			});
+		});
+	}
+
 	getAll() {
 		return new Promise((resolve, reject) => {
 			this.pool.query("SELECT * FROM test", (err, results, fields) => {
 				if (err) {
-					reject(err);
+					console.log(err);
+					reject("Something went wrong with the request");
 				} else {
 					resolve(JSON.parse(JSON.stringify(results)));
 				}
