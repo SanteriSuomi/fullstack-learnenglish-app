@@ -17,8 +17,14 @@ app.listen(PORT, () => {
 // API
 app.get("/test", async (req, res) => {
 	db.getAll()
-		.then((response) => res.send(response))
-		.catch((error) => console.log(error));
+		.then((response) => {
+			res.status(202);
+			res.send(response);
+		})
+		.catch((error) => {
+			res.status(401);
+			console.log(error);
+		});
 });
 
 // If API is not accessed, send frontend instead

@@ -22,17 +22,6 @@ class DB {
 					resolve(JSON.parse(JSON.stringify(results)));
 				}
 			});
-			// this.pool.getConnection((err, connection) => {
-			// 	if (err) reject(err);
-			// 	connection.query(
-			// 		"SELECT * FROM test",
-			// 		(err, results, fields) => {
-			// 			connection.release();
-			// 			if (err) reject(err);
-			// 			resolve(JSON.parse(JSON.stringify(results)));
-			// 		}
-			// 	);
-			// });
 		});
 	}
 }
