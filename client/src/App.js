@@ -23,12 +23,12 @@ function App() {
 		<div>
 			<Navbar bg="dark" variant="dark" className="navbar">
 				<Container>
-					<Navbar.Brand href="/" className="navbar_brand">
+					<Navbar.Brand className="navbar_brand">
 						Learn English!
 					</Navbar.Brand>
 					<Nav className="me-auto">
+						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/game">Game</Nav.Link>
-						<Nav.Link href="/admin">Admin</Nav.Link>
 					</Nav>
 				</Container>
 			</Navbar>
