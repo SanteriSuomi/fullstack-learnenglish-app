@@ -1,7 +1,10 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPanel from "./MainPanel";
+import GamePanel from "./GamePanel";
+import AdminPanel from "./AdminPanel";
+import "./App.css";
 
 function App() {
 	// const [data, setData] = React.useState(null);
@@ -18,16 +21,30 @@ function App() {
 
 	return (
 		<div>
-			<Navbar bg="dark" variant="dark">
+			<Navbar bg="dark" variant="dark" className="navbar">
 				<Container>
-					<Navbar.Brand href="#home">Navbar</Navbar.Brand>
+					<Navbar.Brand href="/" className="navbar_brand">
+						Learn English!
+					</Navbar.Brand>
 					<Nav className="me-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#features">Features</Nav.Link>
-						<Nav.Link href="#pricing">Pricing</Nav.Link>
+						<Nav.Link href="/game">Game</Nav.Link>
+						<Nav.Link href="/admin">Admin</Nav.Link>
 					</Nav>
 				</Container>
 			</Navbar>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<MainPanel></MainPanel>}></Route>
+					<Route
+						path="/game"
+						element={<GamePanel></GamePanel>}
+					></Route>
+					<Route
+						path="/admin"
+						element={<AdminPanel></AdminPanel>}
+					></Route>
+				</Routes>
+			</BrowserRouter>
 		</div>
 	);
 }
