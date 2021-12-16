@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
@@ -7,10 +7,22 @@ import "./AdminPanel.css";
 function AdminPanel() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [openErrorPopup, setOpenErrorPopup] = useState({
-		open: false,
-		msg: "error",
-	});
+	const [openPopup, setOpenPopup] = useState(false);
+	const [popupMessage, setPopupMessage] = useState("");
+	const [popupTimeout, setPopupTimeout] = useState(undefined);
+
+	const setPopup = (value, msg) => {
+		setOpenPopup(value);
+		setPopupMessage(msg);
+		if (popupTimeout) {
+			clearTimeout(popupTimeout);
+		}
+		setPopupTimeout(
+			setTimeout(() => {
+				setOpenPopup(!value);
+			}, 4000)
+		);
+	};
 
 	return (
 		<div>
@@ -52,26 +64,41 @@ function AdminPanel() {
 									} else {
 										let responseJson =
 											await response.json();
-										throw new Error(responseJson.error);
+										throw new Error(responseJson.msg);
 									}
 								})
 								.then((data) => {
-									console.log(data);
+									setPopup(true, data.msg);
 								})
 								.catch((error) => {
-									setOpenErrorPopup({
-										open: true,
-										msg: error.toString(),
-									});
-									console.log(openErrorPopup.open);
+									setPopup(true, error.toString());
 								});
 						}}
 					>
 						Sign-in
 					</Button>
 				</Form>
-				<Popup open={openErrorPopup.open} modal closeOnDocumentClick>
-					<Alert variant="warning">{openErrorPopup.msg}</Alert>
+				<Popup
+					open={openPopup}
+					closeOnDocumentClick
+					onClose={() => {
+						setOpenPopup(false);
+					}}
+				>
+					<div className="popup">
+						<p>{popupMessage}</p>
+					</div>
+				</Popup>
+				<Popup
+					open={openPopup}
+					closeOnDocumentClick
+					onClose={() => {
+						setOpenPopup(false);
+					}}
+				>
+					<div className="popup">
+						<p>{popupMessage}</p>
+					</div>
 				</Popup>
 			</div>
 		</div>

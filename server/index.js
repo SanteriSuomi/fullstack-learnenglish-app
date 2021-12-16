@@ -26,23 +26,20 @@ app.get("/wordpairs", async (req, res) => {
 				.then((result) => {
 					res.status(202);
 					res.send({
-						error: "",
-						data: result,
+						msg: result,
 					});
 				})
 				.catch((error) => {
 					res.status(401);
 					res.send({
-						error: error,
-						data: "",
+						msg: error,
 					});
 				});
 		})
 		.catch((error) => {
 			res.status(401);
 			res.send({
-				error: error,
-				data: "",
+				msg: error,
 			});
 		});
 });
@@ -52,15 +49,13 @@ app.get("/authenticate", async (req, res) => {
 		.then((result) => {
 			res.status(202);
 			res.send({
-				error: "",
-				data: result,
+				msg: result,
 			});
 		})
 		.catch((error) => {
 			res.status(401);
 			res.send({
-				error: error,
-				data: "",
+				msg: error,
 			});
 		});
 });
