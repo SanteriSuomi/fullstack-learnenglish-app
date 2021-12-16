@@ -6,6 +6,8 @@ import GamePanel from "./GamePanel";
 import AdminPanel from "./AdminPanel";
 import "./App.css";
 
+require("dotenv").config();
+
 function App() {
 	// const [data, setData] = React.useState(null);
 

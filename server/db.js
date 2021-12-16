@@ -24,7 +24,7 @@ class DB {
 					reject("Something went wrong with the request");
 				} else {
 					if (results && results.length >= 1) {
-						resolve(true);
+						resolve("Accepted");
 					} else {
 						reject("Could not authenticate");
 					}

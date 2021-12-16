@@ -49,11 +49,11 @@ app.get("/wordpairs", async (req, res) => {
 
 app.get("/authenticate", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
-		.then(() => {
+		.then((result) => {
 			res.status(202);
 			res.send({
 				error: "",
-				data: true,
+				data: result,
 			});
 		})
 		.catch((error) => {
