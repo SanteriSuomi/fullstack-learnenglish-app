@@ -61,7 +61,7 @@ function AdminPanelLogin({
 									}
 								})
 								.then((data) => {
-									setPopup(true, data.msg);
+									// setPopup(true, data.msg);
 									setIsLoggedIn(true);
 								})
 								.catch((error) => {

@@ -17,7 +17,6 @@ class DB {
 		const sql = `SELECT * FROM Admins WHERE Username = ${this.pool.escape(
 			username
 		)} AND Password = ${this.pool.escape(password)};`;
-		console.log(this.pool);
 		return new Promise((resolve, reject) => {
 			this.pool.query(sql, (err, results, fields) => {
 				if (err) {
@@ -36,14 +35,17 @@ class DB {
 
 	getAll() {
 		return new Promise((resolve, reject) => {
-			this.pool.query("SELECT * FROM test", (err, results, fields) => {
-				if (err) {
-					console.log(err);
-					reject("Something went wrong with the request");
-				} else {
-					resolve(JSON.parse(JSON.stringify(results)));
+			this.pool.query(
+				"SELECT * FROM WordPairs",
+				(err, results, fields) => {
+					if (err) {
+						console.log(err);
+						reject("Something went wrong with the request");
+					} else {
+						resolve(JSON.parse(JSON.stringify(results)));
+					}
 				}
-			});
+			);
 		});
 	}
 }

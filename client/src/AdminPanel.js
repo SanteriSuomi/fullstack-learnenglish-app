@@ -21,7 +21,7 @@ function AdminPanel() {
 		setPopupTimeout(
 			setTimeout(() => {
 				setOpenPopup(!value);
-			}, 4000)
+			}, 2500)
 		);
 	};
 

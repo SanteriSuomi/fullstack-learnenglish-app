@@ -9,16 +9,6 @@ import "./App.css";
 require("dotenv").config();
 
 function App() {
-	// React.useEffect(() => {
-	// 	fetch("/test")
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			setData(data);
-	// 			return data;
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// }, []);
-
 	return (
 		<div>
 			<Navbar bg="dark" variant="dark" className="navbar">

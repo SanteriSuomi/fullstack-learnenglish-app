@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
+import { ListGroup } from "react-bootstrap";
 
 function AdminPanelControl({
 	setUsername,
@@ -17,6 +18,31 @@ function AdminPanelControl({
 }) {
 	const [englishWord, setEnglishWord] = useState("");
 	const [finnishWord, setFinnishWord] = useState("");
+	const [wordPairs, setWordPairs] = useState(undefined);
+
+	React.useEffect(() => {
+		if (wordPairs) return;
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
+		fetch(url, {
+			method: "GET",
+		})
+			.then(async (response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					let responseJson = await response.json();
+					throw new Error(responseJson.msg);
+				}
+			})
+			.then((data) => {
+				setWordPairs(data.msg);
+				// setPopup(true, "Fetch successful");
+				return data;
+			})
+			.catch((err) => {
+				setPopup(true, err.toString());
+			});
+	}, [password, username, wordPairs, setPopup]);
 
 	return (
 		<div>
@@ -75,7 +101,23 @@ function AdminPanelControl({
 					</Button>
 				</Form>
 			</div>
+
 			<h4 className="admin_panel_title">Existing Word Pairs</h4>
+			<ListGroup>
+				{wordPairs ? (
+					wordPairs.map(({ English, Finnish, id }) => {
+						return (
+							<ListGroup.Item key={id}>
+								<p>English: {English}</p>
+								<p>Finnish: {Finnish}</p>
+							</ListGroup.Item>
+						);
+					})
+				) : (
+					<div>Kek</div>
+				)}
+			</ListGroup>
+
 			<Popup
 				open={openPopup}
 				closeOnDocumentClick
