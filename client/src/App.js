@@ -9,8 +9,6 @@ import "./App.css";
 require("dotenv").config();
 
 function App() {
-	// const [data, setData] = React.useState(null);
-
 	// React.useEffect(() => {
 	// 	fetch("/test")
 	// 		.then((res) => res.json())

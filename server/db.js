@@ -17,6 +17,7 @@ class DB {
 		const sql = `SELECT * FROM Admins WHERE Username = ${this.pool.escape(
 			username
 		)} AND Password = ${this.pool.escape(password)};`;
+		console.log(this.pool);
 		return new Promise((resolve, reject) => {
 			this.pool.query(sql, (err, results, fields) => {
 				if (err) {
