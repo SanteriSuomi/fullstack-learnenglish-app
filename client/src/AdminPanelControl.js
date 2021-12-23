@@ -4,6 +4,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
 import { ListGroup } from "react-bootstrap";
+import AdminPanelListPair from "./AdminPanelListPair";
 
 function AdminPanelControl({
 	setUsername,
@@ -46,6 +47,26 @@ function AdminPanelControl({
 	const submitPair = () => {
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
 		fetch(url, { method: "POST" })
+			.then(async (response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					let responseJson = await response.json();
+					throw new Error(responseJson.msg);
+				}
+			})
+			.then((data) => {
+				setPopup(true, data.msg);
+				refreshWordPairs(password, username, setPopup, false);
+			})
+			.catch((error) => {
+				setPopup(true, error.toString());
+			});
+	};
+
+	const deletePair = (id) => {
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&id=${id}`;
+		fetch(url, { method: "DELETE" })
 			.then(async (response) => {
 				if (response.ok) {
 					return response.json();
@@ -137,12 +158,13 @@ function AdminPanelControl({
 				{wordPairs ? (
 					wordPairs.map(({ English, Finnish, id }) => {
 						return (
-							<ListGroup.Item key={id}>
-								<div className="admin_panel_column_titles">
-									<p>{English}</p>
-									<p>{Finnish}</p>
-								</div>
-							</ListGroup.Item>
+							<AdminPanelListPair
+								id={id}
+								English={English}
+								Finnish={Finnish}
+								deletePair={deletePair}
+								key={id}
+							></AdminPanelListPair>
 						);
 					})
 				) : (

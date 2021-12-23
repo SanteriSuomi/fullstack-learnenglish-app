@@ -50,14 +50,13 @@ class DB {
 	}
 
 	insert(english, finnish) {
+		console.log();
 		return new Promise((resolve, reject) => {
-			console.log(
-				`SELECT * FROM WordPairs WHERE English="${english}" OR Finnish="${finnish}"`
-			);
 			this.pool.query(
-				`SELECT * FROM WordPairs WHERE English="${english}" OR Finnish="${finnish}"`,
+				`SELECT * FROM WordPairs WHERE English=${this.pool.escape(
+					english
+				)} OR Finnish=${this.pool.escape(finnish)}`,
 				(err, results, fields) => {
-					console.log(english);
 					if (results.length > 0) {
 						reject(
 							`${english} or ${finnish} already exist in the database`
@@ -74,10 +73,26 @@ class DB {
 										"Something went wrong with the request"
 									);
 								} else {
-									resolve("Insert completed");
+									resolve("Insertion completed");
 								}
 							}
 						);
+					}
+				}
+			);
+		});
+	}
+
+	delete(id) {
+		return new Promise((resolve, reject) => {
+			this.pool.query(
+				`DELETE FROM WordPairs WHERE id=${this.pool.escape(id)}`,
+				(err, results, fields) => {
+					if (err) {
+						console.log(err);
+						reject("Something went wrong with the request");
+					} else {
+						resolve("Deletion successful");
 					}
 				}
 			);
