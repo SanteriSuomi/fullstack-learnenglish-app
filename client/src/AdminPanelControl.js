@@ -20,12 +20,9 @@ function AdminPanelControl({
 	const [finnishWord, setFinnishWord] = useState("");
 	const [wordPairs, setWordPairs] = useState(undefined);
 
-	React.useEffect(() => {
-		if (wordPairs) return;
+	const refreshWordPairs = (password, username, setPopup) => {
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
-		fetch(url, {
-			method: "GET",
-		})
+		fetch(url, { method: "GET" })
 			.then(async (response) => {
 				if (response.ok) {
 					return response.json();
@@ -42,6 +39,11 @@ function AdminPanelControl({
 			.catch((err) => {
 				setPopup(true, err.toString());
 			});
+	};
+
+	React.useEffect(() => {
+		if (wordPairs) return;
+		refreshWordPairs(password, username, setPopup);
 	}, [password, username, wordPairs, setPopup]);
 
 	return (
@@ -77,24 +79,28 @@ function AdminPanelControl({
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
-							// const url = `http://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
-							// fetch(url)
-							// 	.then(async (response) => {
-							// 		if (response.ok) {
-							// 			return response.json();
-							// 		} else {
-							// 			let responseJson =
-							// 				await response.json();
-							// 			throw new Error(responseJson.msg);
-							// 		}
-							// 	})
-							// 	.then((data) => {
-							// 		setPopup(true, data.msg);
-							// 		setIsLoggedIn(true);
-							// 	})
-							// 	.catch((error) => {
-							// 		setPopup(true, error.toString());
-							// 	});
+							const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
+							fetch(url, { method: "POST" })
+								.then(async (response) => {
+									if (response.ok) {
+										return response.json();
+									} else {
+										let responseJson =
+											await response.json();
+										throw new Error(responseJson.msg);
+									}
+								})
+								.then((data) => {
+									setPopup(true, data.msg);
+									refreshWordPairs(
+										password,
+										username,
+										setPopup
+									);
+								})
+								.catch((error) => {
+									setPopup(true, error.toString());
+								});
 						}}
 					>
 						Submit
@@ -114,7 +120,7 @@ function AdminPanelControl({
 						);
 					})
 				) : (
-					<div>Kek</div>
+					<div></div>
 				)}
 			</ListGroup>
 

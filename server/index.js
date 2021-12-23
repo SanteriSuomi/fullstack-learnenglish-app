@@ -44,6 +44,31 @@ app.get("/wordpairs", async (req, res) => {
 		});
 });
 
+app.post("/wordpairs", async (req, res) => {
+	db.authenticate(req.query.username, req.query.password)
+		.then(() => {
+			db.insert(req.query.english, req.query.finnish)
+				.then((result) => {
+					res.status(202);
+					res.send({
+						msg: result,
+					});
+				})
+				.catch((error) => {
+					res.status(401);
+					res.send({
+						msg: error,
+					});
+				});
+		})
+		.catch((error) => {
+			res.status(401);
+			res.send({
+				msg: error,
+			});
+		});
+});
+
 app.get("/authenticate", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then((result) => {

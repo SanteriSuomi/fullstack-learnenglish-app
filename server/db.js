@@ -48,6 +48,41 @@ class DB {
 			);
 		});
 	}
+
+	insert(english, finnish) {
+		return new Promise((resolve, reject) => {
+			console.log(
+				`SELECT * FROM WordPairs WHERE English="${english}" OR Finnish="${finnish}"`
+			);
+			this.pool.query(
+				`SELECT * FROM WordPairs WHERE English="${english}" OR Finnish="${finnish}"`,
+				(err, results, fields) => {
+					console.log(english);
+					if (results.length > 0) {
+						reject(
+							`${english} or ${finnish} already exist in the database`
+						);
+					} else {
+						this.pool.query(
+							`INSERT INTO WordPairs (English, Finnish) VALUES (${this.pool.escape(
+								english
+							)}, ${this.pool.escape(finnish)})`,
+							(err, results, fields) => {
+								if (err) {
+									console.log(err);
+									reject(
+										"Something went wrong with the request"
+									);
+								} else {
+									resolve("Insert completed");
+								}
+							}
+						);
+					}
+				}
+			);
+		});
+	}
 }
 
 module.exports = new DB();
