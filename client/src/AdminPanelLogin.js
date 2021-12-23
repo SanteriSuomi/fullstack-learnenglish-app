@@ -15,6 +15,26 @@ function AdminPanelLogin({
 	password,
 	setIsLoggedIn,
 }) {
+	const submitLoginInfo = () => {
+		const url = `http://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
+		fetch(url)
+			.then(async (response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					let responseJson = await response.json();
+					throw new Error(responseJson.msg);
+				}
+			})
+			.then((data) => {
+				// setPopup(true, data.msg);
+				setIsLoggedIn(true);
+			})
+			.catch((error) => {
+				setPopup(true, error.toString());
+			});
+	};
+
 	return (
 		<div>
 			<h2 className="admin_panel_title">Admin Panel</h2>
@@ -49,24 +69,7 @@ function AdminPanelLogin({
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
-							const url = `http://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
-							fetch(url)
-								.then(async (response) => {
-									if (response.ok) {
-										return response.json();
-									} else {
-										let responseJson =
-											await response.json();
-										throw new Error(responseJson.msg);
-									}
-								})
-								.then((data) => {
-									// setPopup(true, data.msg);
-									setIsLoggedIn(true);
-								})
-								.catch((error) => {
-									setPopup(true, error.toString());
-								});
+							submitLoginInfo();
 						}}
 					>
 						Log-in

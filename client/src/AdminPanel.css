@@ -14,3 +14,29 @@
 	text-align: center;
 	padding-top: 2%;
 }
+
+.admin_panel_column_titles {
+	display: flex;
+	flex-direction: row;
+}
+
+.admin_panel_column_titles h4 {
+	padding-left: 24.5%;
+}
+
+.admin_panel_column_titles p {
+	padding-left: 24.5%;
+	font-size: 18px;
+}
+
+.admin_panel_title_wordpairs {
+	display: flex;
+	flex-direction: row;
+	padding-left: 35%;
+	padding-top: 3%;
+	padding-bottom: 2%;
+}
+
+.admin_panel_title_wordpairs_button {
+	margin-left: 3.5%;
+}

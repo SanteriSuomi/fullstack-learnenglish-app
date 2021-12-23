@@ -20,7 +20,7 @@ function AdminPanelControl({
 	const [finnishWord, setFinnishWord] = useState("");
 	const [wordPairs, setWordPairs] = useState(undefined);
 
-	const refreshWordPairs = (password, username, setPopup) => {
+	const refreshWordPairs = (password, username, setPopup, havePopup) => {
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
 		fetch(url, { method: "GET" })
 			.then(async (response) => {
@@ -33,11 +33,33 @@ function AdminPanelControl({
 			})
 			.then((data) => {
 				setWordPairs(data.msg);
-				// setPopup(true, "Fetch successful");
+				if (havePopup) {
+					setPopup(true, "Refresh successful");
+				}
 				return data;
 			})
 			.catch((err) => {
 				setPopup(true, err.toString());
+			});
+	};
+
+	const submitPair = () => {
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
+		fetch(url, { method: "POST" })
+			.then(async (response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					let responseJson = await response.json();
+					throw new Error(responseJson.msg);
+				}
+			})
+			.then((data) => {
+				setPopup(true, data.msg);
+				refreshWordPairs(password, username, setPopup, false);
+			})
+			.catch((error) => {
+				setPopup(true, error.toString());
 			});
 	};
 
@@ -79,28 +101,7 @@ function AdminPanelControl({
 						type="submit"
 						onClick={(e) => {
 							e.preventDefault();
-							const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
-							fetch(url, { method: "POST" })
-								.then(async (response) => {
-									if (response.ok) {
-										return response.json();
-									} else {
-										let responseJson =
-											await response.json();
-										throw new Error(responseJson.msg);
-									}
-								})
-								.then((data) => {
-									setPopup(true, data.msg);
-									refreshWordPairs(
-										password,
-										username,
-										setPopup
-									);
-								})
-								.catch((error) => {
-									setPopup(true, error.toString());
-								});
+							submitPair();
 						}}
 					>
 						Submit
@@ -108,14 +109,39 @@ function AdminPanelControl({
 				</Form>
 			</div>
 
-			<h4 className="admin_panel_title">Existing Word Pairs</h4>
+			<div className="admin_panel_title_wordpairs">
+				<h4>Existing Word Pairs</h4>
+				<Button
+					variant="info"
+					className="admin_panel_title_wordpairs_button"
+					onClick={(e) => {
+						e.preventDefault();
+						refreshWordPairs(password, username, setPopup, true);
+					}}
+				>
+					Refresh
+				</Button>
+				<Button
+					variant="danger"
+					className="admin_panel_title_wordpairs_button"
+				>
+					Delete All
+				</Button>
+			</div>
+
+			<div className="admin_panel_column_titles">
+				<h4>English</h4>
+				<h4>Finnish</h4>
+			</div>
 			<ListGroup>
 				{wordPairs ? (
 					wordPairs.map(({ English, Finnish, id }) => {
 						return (
 							<ListGroup.Item key={id}>
-								<p>English: {English}</p>
-								<p>Finnish: {Finnish}</p>
+								<div className="admin_panel_column_titles">
+									<p>{English}</p>
+									<p>{Finnish}</p>
+								</div>
 							</ListGroup.Item>
 						);
 					})
