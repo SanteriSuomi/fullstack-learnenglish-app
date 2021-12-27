@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Table } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
-import { ListGroup } from "react-bootstrap";
 import AdminPanelListPair from "./AdminPanelListPair";
 
 function AdminPanelControl({
@@ -45,6 +44,8 @@ function AdminPanelControl({
 	};
 
 	const submitPair = () => {
+		setUsername(username.trim());
+		setPassword(password.trim());
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
 		fetch(url, { method: "POST" })
 			.then(async (response) => {
@@ -174,27 +175,32 @@ function AdminPanelControl({
 				</Button>
 			</div>
 
-			<div className="admin_panel_column_titles">
-				<h4>English</h4>
-				<h4>Finnish</h4>
-			</div>
-			<ListGroup>
-				{wordPairs ? (
-					wordPairs.map(({ English, Finnish, id }) => {
-						return (
-							<AdminPanelListPair
-								id={id}
-								English={English}
-								Finnish={Finnish}
-								deletePair={deletePair}
-								key={id}
-							></AdminPanelListPair>
-						);
-					})
-				) : (
-					<div></div>
-				)}
-			</ListGroup>
+			<Table bordered size="sm">
+				<thead>
+					<tr>
+						<th>English</th>
+						<th>Finnish</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{wordPairs ? (
+						wordPairs.map(({ English, Finnish, id }) => {
+							return (
+								<AdminPanelListPair
+									id={id}
+									English={English}
+									Finnish={Finnish}
+									deletePair={deletePair}
+									key={id}
+								></AdminPanelListPair>
+							);
+						})
+					) : (
+						<div></div>
+					)}
+				</tbody>
+			</Table>
 
 			<Popup
 				open={openPopup}

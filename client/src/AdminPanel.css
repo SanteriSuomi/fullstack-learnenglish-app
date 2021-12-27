@@ -45,3 +45,11 @@
 .admin_panel_title_wordpairs_button {
 	margin-left: 3.5%;
 }
+
+th {
+	text-align: center;
+}
+
+.admin_panel_list_pair_button {
+	text-align: center;
+}
