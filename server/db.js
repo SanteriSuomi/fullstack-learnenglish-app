@@ -98,6 +98,21 @@ class DB {
 			);
 		});
 	}
+
+	deleteAll() {
+		return new Promise((resolve, reject) => {
+			this.pool.query(`DELETE FROM WordPairs`, (err, results, fields) => {
+				if (results.affectedRows <= 0) {
+					reject("Cannot delete, database is empty");
+				} else if (err) {
+					console.log(err);
+					reject("Something went wrong with the request");
+				} else {
+					resolve("Deletion of all Word Pairs successful");
+				}
+			});
+		});
+	}
 }
 
 module.exports = new DB();

@@ -72,19 +72,37 @@ app.post("/wordpairs", async (req, res) => {
 app.delete("/wordpairs", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then(() => {
-			db.delete(req.query.id)
-				.then((result) => {
-					res.status(202);
-					res.send({
-						msg: result,
+			if (req.query.all !== undefined) {
+				console.log(req.query);
+
+				db.deleteAll()
+					.then((result) => {
+						res.status(202);
+						res.send({
+							msg: result,
+						});
+					})
+					.catch((error) => {
+						res.status(401);
+						res.send({
+							msg: error,
+						});
 					});
-				})
-				.catch((error) => {
-					res.status(401);
-					res.send({
-						msg: error,
+			} else {
+				db.delete(req.query.id)
+					.then((result) => {
+						res.status(202);
+						res.send({
+							msg: result,
+						});
+					})
+					.catch((error) => {
+						res.status(401);
+						res.send({
+							msg: error,
+						});
 					});
-				});
+			}
 		})
 		.catch((error) => {
 			res.status(401);

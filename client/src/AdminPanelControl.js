@@ -84,6 +84,26 @@ function AdminPanelControl({
 			});
 	};
 
+	const deleteAll = () => {
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&all`;
+		fetch(url, { method: "DELETE" })
+			.then(async (response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					let responseJson = await response.json();
+					throw new Error(responseJson.msg);
+				}
+			})
+			.then((data) => {
+				setPopup(true, data.msg);
+				refreshWordPairs(password, username, setPopup, false);
+			})
+			.catch((error) => {
+				setPopup(true, error.toString());
+			});
+	};
+
 	React.useEffect(() => {
 		if (wordPairs) return;
 		refreshWordPairs(password, username, setPopup);
@@ -92,7 +112,7 @@ function AdminPanelControl({
 	return (
 		<div>
 			<h2 className="admin_panel_title">Admin Panel</h2>
-			<h4 className="admin_panel_title">Submit Word Pairs</h4>
+			<h4 className="admin_panel_title">Upload New Word Pairs</h4>
 			<div className="sign_in_panel">
 				<Form>
 					<Form.Group>
@@ -145,6 +165,10 @@ function AdminPanelControl({
 				<Button
 					variant="danger"
 					className="admin_panel_title_wordpairs_button"
+					onClick={(e) => {
+						e.preventDefault();
+						deleteAll();
+					}}
 				>
 					Delete All
 				</Button>
