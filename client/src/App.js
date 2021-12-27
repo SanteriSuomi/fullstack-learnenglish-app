@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPanel from "./MainPanel";
-import GamePanel from "./GamePanel";
+import LearnPanel from "./LearnPanel";
 import AdminPanel from "./AdminPanel";
 import "./App.css";
 
@@ -18,7 +18,8 @@ function App() {
 					</Navbar.Brand>
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
-						<Nav.Link href="/game">Game</Nav.Link>
+						<Nav.Link href="/learn">Learn</Nav.Link>
+						<Nav.Link href="/admin">Admin</Nav.Link>
 					</Nav>
 				</Container>
 			</Navbar>
@@ -26,8 +27,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<MainPanel></MainPanel>}></Route>
 					<Route
-						path="/game"
-						element={<GamePanel></GamePanel>}
+						path="/learn"
+						element={<LearnPanel></LearnPanel>}
 					></Route>
 					<Route
 						path="/admin"

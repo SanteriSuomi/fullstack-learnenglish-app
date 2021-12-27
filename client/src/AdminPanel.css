@@ -1,12 +1,12 @@
+.admin_panel_title {
+	padding-left: 35%;
+	padding-top: 3%;
+}
+
 .sign_in_panel {
 	padding-left: 35%;
 	padding-right: 35%;
 	padding-top: 2%;
-}
-
-.admin_panel_title {
-	padding-left: 35%;
-	padding-top: 3%;
 }
 
 .popup p {
@@ -25,13 +25,11 @@
 }
 
 .admin_panel_colum_p1 {
-	padding-left: 19%;
-	font-size: 18px;
+	font-size: 17px;
 }
 
 .admin_panel_colum_p2 {
-	padding-left: 27%;
-	font-size: 18px;
+	font-size: 17px;
 }
 
 .admin_panel_title_wordpairs {
@@ -48,4 +46,9 @@
 
 .admin_panel_title_wordpairs_button_delete {
 	margin-left: 25%;
+}
+
+.admin_panel_table {
+	padding-left: 19%;
+	padding-right: 14%;
 }

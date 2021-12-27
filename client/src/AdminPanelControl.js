@@ -44,8 +44,6 @@ function AdminPanelControl({
 	};
 
 	const submitPair = () => {
-		setUsername(username.trim());
-		setPassword(password.trim());
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
 		fetch(url, { method: "POST" })
 			.then(async (response) => {
@@ -190,32 +188,34 @@ function AdminPanelControl({
 				</Popup>
 			</div>
 
-			<Table bordered size="sm">
-				<thead>
-					<tr>
-						<th>English</th>
-						<th>Finnish</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{wordPairs ? (
-						wordPairs.map(({ English, Finnish, id }) => {
-							return (
-								<AdminPanelListPair
-									id={id}
-									English={English}
-									Finnish={Finnish}
-									deletePair={deletePair}
-									key={id}
-								></AdminPanelListPair>
-							);
-						})
-					) : (
-						<div></div>
-					)}
-				</tbody>
-			</Table>
+			<div className="admin_panel_table">
+				<Table bordered size="sm">
+					<thead>
+						<tr>
+							<th>English</th>
+							<th>Finnish</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{wordPairs ? (
+							wordPairs.map(({ English, Finnish, id }) => {
+								return (
+									<AdminPanelListPair
+										id={id}
+										English={English}
+										Finnish={Finnish}
+										deletePair={deletePair}
+										key={id}
+									></AdminPanelListPair>
+								);
+							})
+						) : (
+							<div></div>
+						)}
+					</tbody>
+				</Table>
+			</div>
 
 			<Popup
 				open={openPopup}

@@ -26,8 +26,7 @@ function AdminPanelLogin({
 					throw new Error(responseJson.msg);
 				}
 			})
-			.then((data) => {
-				// setPopup(true, data.msg);
+			.then((_) => {
 				setIsLoggedIn(true);
 			})
 			.catch((error) => {
