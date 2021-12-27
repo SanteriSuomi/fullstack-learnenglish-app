@@ -2,6 +2,7 @@ import React from "react";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
 import { Button } from "react-bootstrap";
+import Popup from "reactjs-popup";
 
 function AdminPanelListPair({ id, English, Finnish, deletePair }) {
 	return (
@@ -13,15 +14,31 @@ function AdminPanelListPair({ id, English, Finnish, deletePair }) {
 				<p className="admin_panel_colum_p2">{Finnish}</p>
 			</td>
 			<td className="admin_panel_list_pair_button">
-				<Button
-					variant="danger"
-					onClick={(e) => {
-						e.preventDefault();
-						deletePair(id);
-					}}
+				<Popup
+					trigger={
+						<Button
+							variant="danger"
+							className="admin_panel_title_wordpairs_button"
+						>
+							Delete
+						</Button>
+					}
+					position="left center"
 				>
-					Delete
-				</Button>
+					<div>
+						<p>Are you sure you want to delete this word pair?</p>
+						<Button
+							variant="danger"
+							className="admin_panel_title_wordpairs_button_delete"
+							onClick={(e) => {
+								e.preventDefault();
+								deletePair(id);
+							}}
+						>
+							Delete
+						</Button>
+					</div>
+				</Popup>
 			</td>
 		</tr>
 	);

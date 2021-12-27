@@ -163,16 +163,31 @@ function AdminPanelControl({
 				>
 					Refresh
 				</Button>
-				<Button
-					variant="danger"
-					className="admin_panel_title_wordpairs_button"
-					onClick={(e) => {
-						e.preventDefault();
-						deleteAll();
-					}}
+				<Popup
+					trigger={
+						<Button
+							variant="danger"
+							className="admin_panel_title_wordpairs_button"
+						>
+							Delete All
+						</Button>
+					}
+					position="right center"
 				>
-					Delete All
-				</Button>
+					<div>
+						<p>Are you sure you want to delete all word pairs?</p>
+						<Button
+							variant="danger"
+							className="admin_panel_title_wordpairs_button_delete"
+							onClick={(e) => {
+								e.preventDefault();
+								deleteAll();
+							}}
+						>
+							Delete All
+						</Button>
+					</div>
+				</Popup>
 			</div>
 
 			<Table bordered size="sm">
