@@ -48,16 +48,19 @@ function LearnPanel() {
 					</thead>
 					<tbody>
 						{wordPairs ? (
-							wordPairs.map(({ English, Finnish, id }) => {
-								return (
-									<LearnPanelListPair
-										id={id}
-										English={English}
-										Finnish={Finnish}
-										key={id}
-									></LearnPanelListPair>
-								);
-							})
+							wordPairs.map(
+								({ English, Finnish, Completed, id }) => {
+									return (
+										<LearnPanelListPair
+											id={id}
+											English={English}
+											Finnish={Finnish}
+											Completed={Completed}
+											key={id}
+										></LearnPanelListPair>
+									);
+								}
+							)
 						) : (
 							<div></div>
 						)}

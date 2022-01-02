@@ -20,7 +20,6 @@ class DB {
 		return new Promise((resolve, reject) => {
 			this.pool.query(sql, (err, results, fields) => {
 				if (err) {
-					console.log(err);
 					reject("Something went wrong with the request");
 				} else {
 					if (results && results.length >= 1) {
@@ -50,7 +49,6 @@ class DB {
 	}
 
 	insert(english, finnish) {
-		console.log();
 		return new Promise((resolve, reject) => {
 			this.pool.query(
 				`SELECT * FROM WordPairs WHERE English=${this.pool.escape(
