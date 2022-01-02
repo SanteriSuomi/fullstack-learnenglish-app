@@ -81,6 +81,25 @@ class DB {
 		});
 	}
 
+	setCompleted(id, completed) {
+		return new Promise((resolve, reject) => {
+			this.pool.query(
+				`UPDATE WordPairs SET Completed=${this.pool.escape(
+					completed
+				)} WHERE id=${this.pool.escape(id)}`,
+				(err, results, fields) => {
+					if (results.length === 0) {
+						reject(
+							`${english} or ${finnish} already exist in the database`
+						);
+					} else {
+						resolve("Set completed successful");
+					}
+				}
+			);
+		});
+	}
+
 	delete(id) {
 		return new Promise((resolve, reject) => {
 			this.pool.query(

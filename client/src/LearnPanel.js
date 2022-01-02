@@ -62,7 +62,7 @@ function LearnPanel() {
 								}
 							)
 						) : (
-							<div></div>
+							<tr></tr>
 						)}
 					</tbody>
 				</Table>
