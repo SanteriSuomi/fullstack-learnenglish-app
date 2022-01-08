@@ -6,6 +6,11 @@
 .learn_panel_sub_title {
 	padding-left: 25%;
 	padding-top: 2.2%;
+	display: flex;
+}
+
+.learn_panel_sub_title_completed {
+	padding-left: 19.5%;
 }
 
 .learn_panel {

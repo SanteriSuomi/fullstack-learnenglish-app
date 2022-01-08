@@ -26,6 +26,19 @@ function LearnPanel() {
 			});
 	};
 
+	const getCompletedAmount = () => {
+		if (wordPairs === undefined) {
+			return 0;
+		}
+		let amount = 0;
+		wordPairs.forEach((element) => {
+			if (element.Completed) {
+				amount++;
+			}
+		});
+		return amount;
+	};
+
 	React.useEffect(() => {
 		if (wordPairs) return;
 		refreshWordPairs();
@@ -34,9 +47,14 @@ function LearnPanel() {
 	return (
 		<div>
 			<h2 className="learn_panel_title">Learn</h2>
-			<h5 className="learn_panel_sub_title">
-				Learn new English words by practicing them on this page!
-			</h5>
+			<div className="learn_panel_sub_title">
+				<h5>
+					Learn new English words by practicing them on this page!
+				</h5>
+				<h5 className="learn_panel_sub_title_completed">{`Completed: ${getCompletedAmount()}/${
+					wordPairs !== undefined ? wordPairs.length : 0
+				}`}</h5>
+			</div>
 			<div className="learn_panel">
 				<Table bordered size="sm">
 					<thead>
