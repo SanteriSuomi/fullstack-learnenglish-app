@@ -1,4 +1,32 @@
-import React, { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: client/src/AdminPanelControl.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: client/src/AdminPanelControl.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
 import { Form, Button, Table } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -33,7 +61,7 @@ function AdminPanelControl({
 	 * @param {*} havePopup whether popup should be activated
 	 */
 	const refreshWordPairs = (password, username, setPopup, havePopup) => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&amp;password=${password}`;
 		fetch(url, { method: "GET" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -59,7 +87,7 @@ function AdminPanelControl({
 	 * Submit current word pair, using the englishWord and finnishWord state
 	 */
 	const submitPair = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&amp;password=${password}&amp;finnish=${finnishWord}&amp;english=${englishWord}`;
 		fetch(url, { method: "POST" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -83,7 +111,7 @@ function AdminPanelControl({
 	 * @param {*} id Id of the pair
 	 */
 	const deletePair = (id) => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&id=${id}`;
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&amp;password=${password}&amp;id=${id}`;
 		fetch(url, { method: "DELETE" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -106,7 +134,7 @@ function AdminPanelControl({
 	 * Delete all pairs from the database
 	 */
 	const deleteAll = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&all`;
+		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&amp;password=${password}&amp;all`;
 		fetch(url, { method: "DELETE" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -134,34 +162,34 @@ function AdminPanelControl({
 	}, [password, username, wordPairs, setPopup]);
 
 	return (
-		<div>
-			<h2 className="admin_panel_title">Admin Panel</h2>
-			<h4 className="admin_panel_title">Upload New Word Pairs</h4>
-			<div className="sign_in_panel">
-				<Form>
-					<Form.Group>
-						<Form.Label>English</Form.Label>
-						<Form.Control
+		&lt;div>
+			&lt;h2 className="admin_panel_title">Admin Panel&lt;/h2>
+			&lt;h4 className="admin_panel_title">Upload New Word Pairs&lt;/h4>
+			&lt;div className="sign_in_panel">
+				&lt;Form>
+					&lt;Form.Group>
+						&lt;Form.Label>English&lt;/Form.Label>
+						&lt;Form.Control
 							placeholder="Enter English Word"
 							onChange={(e) => {
 								e.preventDefault();
 								setEnglishWord(e.target.value);
 							}}
 						/>
-					</Form.Group>
-					<div style={{ padding: "1%" }}></div>
-					<Form.Group>
-						<Form.Label>Finnish</Form.Label>
-						<Form.Control
+					&lt;/Form.Group>
+					&lt;div style={{ padding: "1%" }}>&lt;/div>
+					&lt;Form.Group>
+						&lt;Form.Label>Finnish&lt;/Form.Label>
+						&lt;Form.Control
 							placeholder="Enter Finnish Word"
 							onChange={(e) => {
 								e.preventDefault();
 								setFinnishWord(e.target.value);
 							}}
 						/>
-					</Form.Group>
-					<div style={{ padding: "1%" }}></div>
-					<Button
+					&lt;/Form.Group>
+					&lt;div style={{ padding: "1%" }}>&lt;/div>
+					&lt;Button
 						variant="primary"
 						type="submit"
 						onClick={(e) => {
@@ -170,13 +198,13 @@ function AdminPanelControl({
 						}}
 					>
 						Submit
-					</Button>
-				</Form>
-			</div>
+					&lt;/Button>
+				&lt;/Form>
+			&lt;/div>
 
-			<div className="admin_panel_title_wordpairs">
-				<h4>Existing Word Pairs</h4>
-				<Button
+			&lt;div className="admin_panel_title_wordpairs">
+				&lt;h4>Existing Word Pairs&lt;/h4>
+				&lt;Button
 					variant="info"
 					className="admin_panel_title_wordpairs_button"
 					onClick={(e) => {
@@ -185,21 +213,21 @@ function AdminPanelControl({
 					}}
 				>
 					Refresh
-				</Button>
-				<Popup
+				&lt;/Button>
+				&lt;Popup
 					trigger={
-						<Button
+						&lt;Button
 							variant="danger"
 							className="admin_panel_title_wordpairs_button"
 						>
 							Delete All
-						</Button>
+						&lt;/Button>
 					}
 					position="right center"
 				>
-					<div>
-						<p>Are you sure you want to delete all word pairs?</p>
-						<Button
+					&lt;div>
+						&lt;p>Are you sure you want to delete all word pairs?&lt;/p>
+						&lt;Button
 							variant="danger"
 							className="admin_panel_title_wordpairs_button_delete"
 							onClick={(e) => {
@@ -208,64 +236,87 @@ function AdminPanelControl({
 							}}
 						>
 							Delete All
-						</Button>
-					</div>
-				</Popup>
-			</div>
+						&lt;/Button>
+					&lt;/div>
+				&lt;/Popup>
+			&lt;/div>
 
-			<div className="admin_panel_table">
-				<Table bordered size="sm">
-					<thead>
-						<tr>
-							<th>English</th>
-							<th>Finnish</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
+			&lt;div className="admin_panel_table">
+				&lt;Table bordered size="sm">
+					&lt;thead>
+						&lt;tr>
+							&lt;th>English&lt;/th>
+							&lt;th>Finnish&lt;/th>
+							&lt;th>&lt;/th>
+						&lt;/tr>
+					&lt;/thead>
+					&lt;tbody>
 						{wordPairs ? (
 							wordPairs.map(({ English, Finnish, id }) => {
 								return (
-									<AdminPanelListPair
+									&lt;AdminPanelListPair
 										id={id}
 										English={English}
 										Finnish={Finnish}
 										deletePair={deletePair}
 										key={id}
-									></AdminPanelListPair>
+									>&lt;/AdminPanelListPair>
 								);
 							})
 						) : (
-							<tr></tr>
+							&lt;tr>&lt;/tr>
 						)}
-					</tbody>
-				</Table>
-			</div>
+					&lt;/tbody>
+				&lt;/Table>
+			&lt;/div>
 
-			<Popup
+			&lt;Popup
 				open={openPopup}
 				closeOnDocumentClick
 				onClose={() => {
 					setOpenPopup(false);
 				}}
 			>
-				<div className="popup">
-					<p>{popupMessage}</p>
-				</div>
-			</Popup>
-			<Popup
+				&lt;div className="popup">
+					&lt;p>{popupMessage}&lt;/p>
+				&lt;/div>
+			&lt;/Popup>
+			&lt;Popup
 				open={openPopup}
 				closeOnDocumentClick
 				onClose={() => {
 					setOpenPopup(false);
 				}}
 			>
-				<div className="popup">
-					<p>{popupMessage}</p>
-				</div>
-			</Popup>
-		</div>
+				&lt;div className="popup">
+					&lt;p>{popupMessage}&lt;/p>
+				&lt;/div>
+			&lt;/Popup>
+		&lt;/div>
 	);
 }
 
 export default AdminPanelControl;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AdminPanel">AdminPanel</a></li><li><a href="global.html#AdminPanelControl">AdminPanelControl</a></li><li><a href="global.html#AdminPanelListPair">AdminPanelListPair</a></li><li><a href="global.html#AdminPanelLogin">AdminPanelLogin</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#LearnPanel">LearnPanel</a></li><li><a href="global.html#LearnPanelListPair">LearnPanelListPair</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Jan 10 2022 00:11:14 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

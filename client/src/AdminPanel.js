@@ -4,6 +4,10 @@ import "./AdminPanel.css";
 import AdminPanelLogin from "./AdminPanelLogin";
 import AdminPanelControl from "./AdminPanelControl";
 
+/**
+ * Admin panel root component. Contains some commonly used functions for both the log-in and the control admin view
+ * @returns HTML of the component
+ */
 function AdminPanel() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -12,15 +16,20 @@ function AdminPanel() {
 	const [popupTimeout, setPopupTimeout] = useState(undefined);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	const setPopup = (value, msg) => {
-		setOpenPopup(value);
+	/**
+	 * Activate/deactivate a new popup on admin panel
+	 * @param {*} popupState Activate/deactivate poup
+	 * @param {*} msg If activate popup, what message to display
+	 */
+	const setPopup = (popupState, msg) => {
+		setOpenPopup(popupState);
 		setPopupMessage(msg);
 		if (popupTimeout) {
 			clearTimeout(popupTimeout);
 		}
 		setPopupTimeout(
 			setTimeout(() => {
-				setOpenPopup(!value);
+				setOpenPopup(!popupState);
 			}, 2500)
 		);
 	};

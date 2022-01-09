@@ -8,17 +8,29 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// Use cross-origin resource sharing
+/**
+ * Use cross-origin resource sharing
+ */
 app.use(cors());
-// Deliver frontend
+/**
+ * Deliver frontend
+ */
 app.use(express.static(path.resolve(__dirname, "../client/build")));
-// Parse application/json in request body
+/**
+ * Parse application/json in request body
+ */
 app.use(bodyParser.json());
 
+/**
+ *	Start server by listening to a specific port, which is injected from environment (or default is used).
+ */
 app.listen(PORT, () => {
 	console.log(`Server listening on ${PORT}`);
 });
 
+/**
+ * GET HTTP command (get all word pairs).
+ */
 app.get("/wordpairs", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then(() => {
@@ -44,6 +56,9 @@ app.get("/wordpairs", async (req, res) => {
 		});
 });
 
+/**
+ * POST HTTP command (insert a new word pair).
+ */
 app.post("/wordpairs", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then(() => {
@@ -69,6 +84,9 @@ app.post("/wordpairs", async (req, res) => {
 		});
 });
 
+/**
+ * PUT HTTP command (set word pair as completed).
+ */
 app.put("/wordpairs", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then(() => {
@@ -94,12 +112,14 @@ app.put("/wordpairs", async (req, res) => {
 		});
 });
 
+/**
+ * DELETE HTTP command (delete a word pair).
+ */
 app.delete("/wordpairs", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then(() => {
+			// If the query contains the all variable, delete all word pairs from the database.
 			if (req.query.all !== undefined) {
-				console.log(req.query);
-
 				db.deleteAll()
 					.then((result) => {
 						res.status(202);
@@ -137,6 +157,9 @@ app.delete("/wordpairs", async (req, res) => {
 		});
 });
 
+/**
+ * GET HTTP command used for authentication before using any of the other commands.
+ */
 app.get("/authenticate", async (req, res) => {
 	db.authenticate(req.query.username, req.query.password)
 		.then((result) => {
@@ -153,7 +176,9 @@ app.get("/authenticate", async (req, res) => {
 		});
 });
 
-// If API is not accessed, send frontend instead
+/**
+ * Send front-end instead if API is not accessed, to allow front-end and back-end to co-exist.
+ */
 app.get("*", (_, res) => {
 	res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });

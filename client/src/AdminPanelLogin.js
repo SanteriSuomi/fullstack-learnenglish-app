@@ -4,6 +4,11 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./AdminPanel.css";
 
+/**
+ * Log-in screen of admin panel
+ * @param {*} param0 React properties, (setUsername function, setPassword function, setPopup function, setOpenPopup function, popupMessage string, username string, pasword string, setIsLoggedIn function)
+ * @returns Component HTML
+ */
 function AdminPanelLogin({
 	setUsername,
 	setPassword,
@@ -15,6 +20,9 @@ function AdminPanelLogin({
 	password,
 	setIsLoggedIn,
 }) {
+	/**
+	 * Attempt authenticating login info with the API and if successful, setLoggedIn state to true
+	 */
 	const submitLoginInfo = () => {
 		const url = `http://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
 		fetch(url)

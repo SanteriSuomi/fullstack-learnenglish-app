@@ -3,10 +3,17 @@ import { Table, Button } from "react-bootstrap";
 import "./LearnPanel.css";
 import LearnPanelListPair from "./LearnPanelListPair";
 
+/**
+ * LearnPanel component
+ * @returns HTML of the component
+ */
 function LearnPanel() {
 	const [wordPairs, setWordPairs] = useState(undefined);
 	const [hidden, setHidden] = useState(false);
 
+	/**
+	 * Refresh wordPairs state by retrieving them from the database
+	 */
 	const refreshWordPairs = () => {
 		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}`;
 		fetch(url, { method: "GET" })
@@ -27,6 +34,10 @@ function LearnPanel() {
 			});
 	};
 
+	/**
+	 * Get wordPairs total completed
+	 * @returns Number of completed word pairs
+	 */
 	const getCompletedAmount = () => {
 		if (wordPairs === undefined) {
 			return 0;
@@ -40,6 +51,9 @@ function LearnPanel() {
 		return amount;
 	};
 
+	/**
+	 * Hide or show the completed word pairs depending on the current state of hidden
+	 */
 	const hideOrShowCompleted = () => {
 		if (hidden) {
 			refreshWordPairs();
@@ -56,6 +70,9 @@ function LearnPanel() {
 		}
 	};
 
+	/**
+	 * Initial word pairs display update
+	 */
 	React.useEffect(() => {
 		if (wordPairs) return;
 		refreshWordPairs();

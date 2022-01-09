@@ -5,8 +5,15 @@ import LearnPanel from "./LearnPanel";
 import AdminPanel from "./AdminPanel";
 import "./App.css";
 
+/**
+ * Inject environment
+ */
 require("dotenv").config();
 
+/**
+ * Application main function. Contains navigatio set-up
+ * @returns Application HTML
+ */
 function App() {
 	return (
 		<div>

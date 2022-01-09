@@ -4,6 +4,11 @@ import "./AdminPanel.css";
 import { Button } from "react-bootstrap";
 import Popup from "reactjs-popup";
 
+/**
+ * Component representing one word pair on the admin panel list
+ * @param {*} param0 React properties, (word pair ID, English word, Finnish word, completed state) in order
+ * @returns HTML of the component
+ */
 function AdminPanelListPair({ id, English, Finnish, deletePair }) {
 	return (
 		<tr>
