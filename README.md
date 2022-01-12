@@ -12,7 +12,7 @@ Project was the final project of the back-end development course.
 
 ## Tech/framework used
 
-React (front-end), Express (back-end), Mysql (database)
+React (front-end), Node, Express (back-end), Mysql (database)
 
 ## Features
 
