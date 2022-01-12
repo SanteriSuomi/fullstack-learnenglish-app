@@ -16,7 +16,7 @@ function LearnPanelListPair({ id, English, Finnish, Completed }) {
 	 * @param {*} completed State of completed (true or false)
 	 */
 	const setCompleted = (completed) => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}&id=${id}&completed=${completed}`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}&id=${id}&completed=${completed}`;
 		fetch(url, { method: "PUT" })
 			.then(async (response) => {
 				if (response.ok) {

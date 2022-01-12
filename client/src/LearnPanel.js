@@ -15,7 +15,7 @@ function LearnPanel() {
 	 * Refresh wordPairs state by retrieving them from the database
 	 */
 	const refreshWordPairs = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}`;
 		fetch(url, { method: "GET" })
 			.then(async (response) => {
 				if (response.ok) {

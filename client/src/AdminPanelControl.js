@@ -33,7 +33,7 @@ function AdminPanelControl({
 	 * @param {*} havePopup whether popup should be activated
 	 */
 	const refreshWordPairs = (password, username, setPopup, havePopup) => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}`;
 		fetch(url, { method: "GET" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -59,7 +59,7 @@ function AdminPanelControl({
 	 * Submit current word pair, using the englishWord and finnishWord state
 	 */
 	const submitPair = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&finnish=${finnishWord}&english=${englishWord}`;
 		fetch(url, { method: "POST" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -83,7 +83,7 @@ function AdminPanelControl({
 	 * @param {*} id Id of the pair
 	 */
 	const deletePair = (id) => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&id=${id}`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&id=${id}`;
 		fetch(url, { method: "DELETE" })
 			.then(async (response) => {
 				if (response.ok) {
@@ -106,7 +106,7 @@ function AdminPanelControl({
 	 * Delete all pairs from the database
 	 */
 	const deleteAll = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&all`;
+		const url = `https://${process.env.REACT_APP_api_host}/wordpairs?username=${username}&password=${password}&all`;
 		fetch(url, { method: "DELETE" })
 			.then(async (response) => {
 				if (response.ok) {

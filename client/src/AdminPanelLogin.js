@@ -24,7 +24,7 @@ function AdminPanelLogin({
 	 * Attempt authenticating login info with the API and if successful, setLoggedIn state to true
 	 */
 	const submitLoginInfo = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
+		const url = `https://${process.env.REACT_APP_api_host}/authenticate?username=${username}&password=${password}`;
 		fetch(url)
 			.then(async (response) => {
 				if (response.ok) {
