@@ -8,7 +8,7 @@ import "./App.css";
 /**
  * Inject environment
  */
-require("dotenv").config();
+// require("dotenv").config();
 
 /**
  * Application main function. Contains navigatio set-up
