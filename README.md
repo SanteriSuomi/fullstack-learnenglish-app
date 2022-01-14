@@ -57,6 +57,16 @@ First, follow the installation section.
 To run the application go to /server folder and npm start to start the server, then do the same in /client folder to start the UI. 
 Application is also uploaded to heroku: https://fullstack-learnenglish-app.herokuapp.com/
 
+## Video
+
+https://www.youtube.com/watch?v=g6shBWdfG48
+
+Timestamps:
+1. UI Demonstration | https://youtu.be/g6shBWdfG48
+2. Describe relevant parts of the code | https://youtu.be/g6shBWdfG48?t=131
+3. Known bugs | https://youtu.be/g6shBWdfG48?t=445
+4. Self-evaluation and what grade are you aiming at | https://youtu.be/g6shBWdfG48?t=492
+
 ## Credits
 
 Me and possibly any tutorial/documentation I've used along the way.
