@@ -18,30 +18,6 @@ React (front-end), Node, Express (back-end), Mysql (database)
 
 Extremely simple, clean and easy to use for both learners and admins (for modifying word pairs).
 
-## Code Example
-
-	Code example of a refreshWordPairs function. This function retrieves new word pairs from the database and sets them to the component state.
-	
-	const refreshWordPairs = () => {
-		const url = `http://${process.env.REACT_APP_api_host}/wordpairs?username=${process.env.REACT_APP_api_user}&password=${process.env.REACT_APP_api_password}`;
-		fetch(url, { method: "GET" })
-			.then(async (response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					let responseJson = await response.json();
-					throw new Error(responseJson.msg);
-				}
-			})
-			.then((data) => {
-				setWordPairs(data.msg);
-				return data;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-	
 ## Installation
 
 1. Clone repository.
