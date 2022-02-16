@@ -34,8 +34,10 @@ To run the application go to /server folder and npm start to start the server, t
 Application is also uploaded to heroku: https://fullstack-learnenglish-app.herokuapp.com/
 
 To access the admin panel:
+
 Username: root
-Passowrd: fullstack
+
+Password: fullstack
 
 ## Video
 
